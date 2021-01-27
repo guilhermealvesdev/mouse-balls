@@ -1,4 +1,10 @@
-﻿//Importamos a classe Ball de Ball.js, que é uma simples classe que contém os métodos das bolinhas que apresentaremos.
+﻿/*
+    Adaptado de MinzCode, favor visitar e apoiar o canal:
+    https://www.youtube.com/channel/UCknjk_lWCHNT1UFBGCgHTdg
+*/
+
+
+//Importamos a classe Ball de Ball.js, que é uma simples classe que contém os métodos das bolinhas que apresentaremos.
 import Ball from "./ball.js"
 
 //Selecionamos o elemento do canvas.
@@ -8,7 +14,7 @@ const canvas = document.querySelector("#canvas");
     Usamos a função "getContext" com o valor "2d" pra especificar
     que queremos usar as funções para canvas bidimensionais.
 */
-export const ctx = canvas.getContext("2d");
+const ctx = canvas.getContext("2d");
 
 /*
     Criamos três arrays vazias: largura, altura, e a quantidade de bolinhas.
@@ -16,22 +22,37 @@ export const ctx = canvas.getContext("2d");
 let w, h, balls = [];
 
 //Criamos um objeto representando a posição do mouse e setamos como undefined.
-export let mouse = {
+let mouse = {
     x: undefined,
     y: undefined
 }
 
-//Array de cores das bolinhas.
-export let rgb = [
-    [54, 59, 99],
-    [155, 33, 85],
-    [200, 185, 202],
-    [210, 155, 254],
-    [144, 33, 129],
-    [15, 85, 129],
-    [65, 98, 77],
-    [159, 20, 158]
-]
+/* 
+    Função que cria cores aleatórias.
+    Criamos aqui uma array que vai receber outras arrays, uma pra cada cor da paleta RGB.
+*/
+const geraCores = (quantidadeCores, minValue = 0, maxValue = 255) => {
+    let arrayCores = [];
+
+    minValue = minValue < 0 ? 0 : minValue;;
+    maxValue = maxValue > 255 ? 255 : maxValue;
+
+    for (let i = 0; i <= quantidadeCores; i++) {
+        let arrayCor = [];
+
+        let r = getRandomInt(maxValue, minValue);
+        let g = getRandomInt(maxValue, minValue);
+        let b = getRandomInt(maxValue, minValue);
+
+        arrayCor.push(r, g, b);
+        arrayCores.push(arrayCor);
+    }
+
+    return arrayCores;
+}
+
+//Array de cores das bolinhas. No caso, pedimos 4 cores aleatórias.
+let rgb = geraCores(4)
 
 //Função de início.
 function init() {
@@ -47,9 +68,7 @@ function resizeReset() {
 }
 
 
-function animationLoop() {
-    console.log(balls.length);
-    
+function animationLoop() {    
     /*
         Limpamos todos os pixels de 
         um retângulo definido. Os parâmetros são posição (x e y)
@@ -96,7 +115,7 @@ function mouseout() {
 }
 
 //Função que pega um valor aleatório entre dois determinados números.
-export function getRandomInt(min, max) {
+function getRandomInt(min, max) {
     return Math.round(Math.random() * (max - min)) + min;
 }
 
@@ -112,3 +131,7 @@ window.addEventListener("DOMContentLoaded", init);
 window.addEventListener("resize", resizeReset);
 window.addEventListener("mousemove", mousemove);
 window.addEventListener("mouseout", mouseout);
+
+
+//Exportando variáveis para serem acessados pela classe Ball.
+export {getRandomInt, rgb, mouse, ctx, balls};

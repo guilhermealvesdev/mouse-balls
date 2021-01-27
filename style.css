@@ -13,7 +13,7 @@ body {
     place-items:center;
     height:100vh;
     text-align:center;
-    background-image: radial-gradient(#dff9fb 0%, #abe1e4 100%);
+    background-image: radial-gradient(#333 0%, #000 100%);
     background-attachment: fixed;
 }
 
@@ -34,11 +34,11 @@ canvas {
 .container h1 {
 	font-size: 70px;
 	color: #fff;
-	text-shadow: 3px 3px 3px rgba(41,128,185,.8);
+	text-shadow: 3px 3px 3px rgba(173, 173, 173, 0.8);
 }
 
 .container p {
-    color:#000000;
+    color:#FFFFFF;
     margin-top:20px;
     font-size:20px;
 }

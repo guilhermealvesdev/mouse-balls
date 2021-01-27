@@ -1,17 +1,17 @@
 //Pegamos a função getRandomInt, o objeto MOUSE e o CTX do arquivo principal.
-import {getRandomInt, rgb, mouse, ctx} from "./script.js"
+import {getRandomInt, rgb, mouse, ctx, balls} from "./script.js"
 
 class Ball {
     constructor() {
         this.x = mouse.x + getRandomInt(-30, 20); //Colocamos a bola na posição X que o mouse está, mais um número aleatório entre -30 e 20.
         this.y = mouse.y + getRandomInt(-30, 20); //O mesmo aqui, só que o valor Y.
-        this.size = getRandomInt(10, 30); // Definimos um tamanho pra bola.
+        this.size = getRandomInt(10, 30); // Definimos um tamanho aleatório pra bola.
         this.rgb = rgb[getRandomInt(0, rgb.length - 1)]; //Pegamos um valor aleatório da array de cores.
-        this.style = `rgba(${this.rgb[0]},${this.rgb[1]},${this.rgb[2]},.5)`; //Aqui atribuímos cada valor da array DA ARRAY de cores.
+        this.style = `rgba(${this.rgb[0]},${this.rgb[1]},${this.rgb[2]},.5)`; //Atribuímos cada valor de uma array da array de cores.
     }
 
     draw() {
-        ctx.fillStyle = this.style; //Atribuímos a cor ao método fillStyle. Seria tipo colocar tinta na pistola do airbrush.
+        ctx.fillStyle = this.style; //Atribuímos a cor ao método fillStyle. Seria tipo colocar tinta na pistola de um airbrush.
         ctx.beginPath(); //Inicia um novo caminho (path) no canvas.
 
         /*
@@ -35,6 +35,11 @@ class Ball {
         if (this.size > 0) {
             let s = this.size - 0.3;
             this.size = (s <= 0) ? 0 : s;
+        }
+
+        //Para não sobrecarregar o DOM, limitamos a 1000 bolinhas apresentadas. No caso, removemos o primeiro item da array de bolinhas.
+        if (balls.length > 1000) {
+            balls.shift();
         }
     }
 }
